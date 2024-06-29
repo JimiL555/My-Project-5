@@ -40,11 +40,13 @@ function renderTaskList() {
 
   $(".task-card").draggable({
     revert: "invalid",
-    stack: ".task-card"
+    stack: ".task-card",
+    zIndex: 100
   });
 
   $(".lane").droppable({
     accept: ".task-card",
+    hoverClass: "ui-droppable-hover",
     drop: handleDrop
   });
 
@@ -82,7 +84,7 @@ function handleDeleteTask(event) {
 // Handle dropping a task into a new status lane
 function handleDrop(event, ui) {
   const taskId = ui.draggable.data('id');
-  const newStatus = $(this).attr('id').replace('-cards', '');
+  const newStatus = $(this).attr('id').replace('-cards', '').replace('todo', 'To Do').replace('in-progress', 'In Progress').replace('done', 'Done');
   taskList = taskList.map(task => {
     if (task.id === taskId) {
       task.status = newStatus;
