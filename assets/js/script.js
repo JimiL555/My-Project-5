@@ -2,12 +2,12 @@
 let taskList = JSON.parse(localStorage.getItem("tasks")) || [];
 let nextId = JSON.parse(localStorage.getItem("nextId")) || 1;
 
-// Function to generate a unique task id
+// Generate a unique task id
 function generateTaskId() {
   return nextId++;
 }
 
-// Function to create a task card
+// Create a task card
 function createTaskCard(task) {
   return `
     <div class="card task-card" data-id="${task.id}">
@@ -21,7 +21,7 @@ function createTaskCard(task) {
   `;
 }
 
-// Function to render the task list and make cards draggable
+// Render the task list and make cards draggable
 function renderTaskList() {
   $('#todo-cards').empty();
   $('#in-progress-cards').empty();
@@ -53,7 +53,7 @@ function renderTaskList() {
   $(".delete-btn").click(handleDeleteTask);
 }
 
-// Function to handle adding a new task
+// Handle adding a new task
 function handleAddTask(event) {
   event.preventDefault();
   const title = $('#task-title').val();
@@ -73,7 +73,7 @@ function handleAddTask(event) {
   $('#formModal').modal('hide');
 }
 
-// Function to handle deleting a task
+// Handle deleting a task
 function handleDeleteTask(event) {
   const taskId = $(event.target).closest('.task-card').data('id');
   taskList = taskList.filter(task => task.id !== taskId);
@@ -81,7 +81,7 @@ function handleDeleteTask(event) {
   renderTaskList();
 }
 
-// Function to handle dropping a task into a new status lane
+// Handle dropping a task into a new status lane
 function handleDrop(event, ui) {
   const taskId = ui.draggable.data('id');
   const newStatus = $(this).attr('id').replace('-cards', '').replace('todo', 'To Do').replace('in-progress', 'In Progress').replace('done', 'Done');
